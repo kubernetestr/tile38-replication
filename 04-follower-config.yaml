@@ -1,0 +1,11 @@
+kind: ConfigMap
+metadata:
+  name: follower-config
+  namespace: tile38
+apiVersion: v1
+data:
+  config: |-
+    {
+        "follow_host": "tile38-leader.tile38.svc.cluster.local",
+        "follow_port": 9851
+    }

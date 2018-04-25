@@ -1,0 +1,47 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    name: tile38-follower
+  namespace: tile38
+  name: tile38-follower
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        name: tile38
+    spec:
+      containers:
+      - image: tile38/tile38:latest
+        name: tile38
+        ports:
+        - name: tile38
+          containerPort: 9851
+        volumeMounts:
+            - name: tile38-data
+              mountPath: /data
+            - name: tile38-config
+              mountPath: /data/data
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "20m"
+          limits:
+            memory: "512Mi"
+            cpu: "100m"
+        readinessProbe:
+          tcpSocket:
+            port: 9851
+          initialDelaySeconds: 10
+          periodSeconds: 10
+      volumes:
+        - name: tile38-data
+          emptyDir: {}
+        - name: tile38-config
+          configMap:
+            name: follower-config
+
+
+
+

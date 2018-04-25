@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: tile38-leader
+  namespace: tile38
+  name: tile38-leader
+spec:
+  type: ClusterIP
+  ports:
+    - name: tile38 
+      port: 9851
+  selector:
+    name: tile38-leader
